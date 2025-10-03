@@ -5,7 +5,7 @@ node_modules
 # ignore the specific packages versions installed by the developer
 package-lock.json
 # ignore the development environment variables (if any)
-# .env
+.env
 # ignore MacOS specific files
 .DS_Store
 # ignore the Windows specific files
