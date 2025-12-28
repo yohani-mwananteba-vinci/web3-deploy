@@ -1,0 +1,81 @@
+@baseUrl = http://localhost:3000/api
+
+### Read all expenses
+GET {{baseUrl}}/expenses
+
+### Create a expense A
+POST {{baseUrl}}/expenses
+Content-Type: application/json
+
+{
+    "description": "Example expense #1 from Alice",
+    "payer": "Alice",
+    "amount": 25.5 
+}
+
+### Create expense B
+POST {{baseUrl}}/expenses
+Content-Type: application/json
+
+{
+  "description": "Lunch with client",
+  "payer": "Alice",
+  "amount": 45.75
+}
+
+### Create expense C
+POST {{baseUrl}}/expenses
+Content-Type: application/json
+
+{
+  "description": "Office supplies",
+  "payer": "Bob",
+  "amount": 12.4
+}
+
+### Create expense D
+POST {{baseUrl}}/expenses
+Content-Type: application/json
+
+{
+  "description": "Taxi to airport",
+  "payer": "Charlie",
+  "amount": 32
+}
+
+### Create expense E
+POST {{baseUrl}}/expenses
+Content-Type: application/json
+
+{
+  "description": "Team coffee",
+  "payer": "Dana",
+  "amount": 18.9
+}
+
+### Try to create a bad expenses (missing param)
+POST {{baseUrl}}/expenses
+Content-Type: application/json
+
+{
+    "description": "Example expense #1 from Alice",
+    "payer": "Alice",
+}
+
+### Try to create a bad expenses (wrong param type)
+POST {{baseUrl}}/expenses
+Content-Type: application/json
+
+{
+    "description": "Example expense #1 from Alice",
+    "payer": 62726271,
+    "amount": 25.5 
+}
+
+### Reset expenses to initial data
+POST {{baseUrl}}/expenses/reset
+Content-Type: application/json
+
+{
+    
+}

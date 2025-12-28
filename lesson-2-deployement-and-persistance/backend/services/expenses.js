@@ -1,20 +1,24 @@
-const fs = require('fs');
-const path = require('path');
+const { PrismaClient } = require('../generated/prisma');
 
-const EXPENSES_FILE_PATH = path.join(__dirname, '../data/expenses.json');
-const EXPENSES_INIT_FILE_PATH = path.join(__dirname, '../data/expenses.init.json');
+const prisma = new PrismaClient();
 
-function getAllExpenses() {
-  const data = fs.readFileSync(EXPENSES_FILE_PATH, 'utf8');
-  return JSON.parse(data);
+async function getAllExpenses() {
+  const data = await prisma.expense.findMany();
+  console.log(data);
+  return data;
 }
 
-function addExpense(expense) {
-  const expenses = getAllExpenses();
-  expenses.push(expense);
-
-  const updatedExpenses = JSON.stringify(expenses, null, 2);
-  fs.writeFileSync(EXPENSES_FILE_PATH, updatedExpenses);
+async function addExpense(expense) {
+  const newExpense = await prisma.expense.create({
+    data: {
+      id: newExpense.id,
+      description: expense.description,
+      payer: expense.payer,
+      amount: expense.amount
+    }
+    // Rem: You can still use the property name of a any js object
+    // (properties name's are defined when you create the param expense)
+  });
   return expense;
 }
 
