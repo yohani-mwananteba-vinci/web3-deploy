@@ -15,14 +15,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    // if (
-    //   (!req.body.description || !String(req.body.description).trim()) &&
-    //   (req.body.payer || !String(req.body.payer).trim()) &&
-    //   (parseFloat(req.body.amount) <= 0)
-    // ) throw new Error("Missing expense")
-    
     const newExpense = {
-      // id: Date.now(),
       date: req.body.date ?? null,
       description: req.body.description,
       payer: req.body.payer,

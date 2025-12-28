@@ -4,14 +4,13 @@ const prisma = new PrismaClient();
 
 async function getAllExpenses() {
   const data = await prisma.expense.findMany();
-  console.log(data);
+  // console.log(data);
   return data;
 }
 
 async function addExpense(expense) {
   const newExpense = await prisma.expense.create({
     data: {
-      id: newExpense.id,
       description: expense.description,
       payer: expense.payer,
       amount: expense.amount
