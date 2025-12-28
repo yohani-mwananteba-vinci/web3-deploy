@@ -11,6 +11,7 @@ async function getAllExpenses() {
 async function addExpense(expense) {
   const newExpense = await prisma.expense.create({
     data: {
+      date: expense.date,
       description: expense.description,
       payer: expense.payer,
       amount: expense.amount

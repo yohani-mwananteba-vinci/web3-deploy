@@ -8,6 +8,7 @@ POST {{baseUrl}}/expenses
 Content-Type: application/json
 
 {
+    "date": "2025-28-12",
     "description": "Example expense #1 from Alice",
     "payer": "Alice",
     "amount": 25.5 

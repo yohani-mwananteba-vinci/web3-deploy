@@ -15,6 +15,9 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
+    if (!req.body.description || !req.body.payer || !req.body.amount) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
     const newExpense = {
       date: req.body.date ?? null,
       description: req.body.description,

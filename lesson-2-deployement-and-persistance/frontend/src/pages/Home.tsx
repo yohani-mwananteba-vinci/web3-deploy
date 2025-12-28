@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import ExpenseItem from "../components/ExpenseItem";
 import ExpenseAdd from "../components/ExpenseAdd";
 import ExpenseSorter from "../components/ExpenseSorter";
-import type { Expense } from "../types/Expense";
+import type { Expense, ExpenseInput } from "../types/Expense";
 
 const host = import.meta.env.VITE_API_URL || "http://unknown-api-url.com";
 
@@ -52,9 +52,9 @@ export default function Home() {
     fetchExpenses();
   }, []);
 
-  const handleAddExpense = async (newExpense: Expense) => {
+  const handleAddExpense = async (newExpense: ExpenseInput) => {
     const newExpensesOptimistic = [newExpense, ...expenses]; // Optimistically update the state, whatever the sort method, add on top
-    setExpenses(newExpensesOptimistic);
+    setExpenses({ ...newExpensesOptimistic } as Expense[]);
     const addedExpense = await sendApiRequestandHandleError(
       "POST",
       "expenses",
@@ -93,6 +93,7 @@ export default function Home() {
       {error && <div>Error: {error}</div>}
 
       <div>
+        <h2>Add a new expense</h2>
         <ExpenseAdd addExpense={handleAddExpense} />
         <button onClick={handleResetData}>Reset Data</button>
       </div>
