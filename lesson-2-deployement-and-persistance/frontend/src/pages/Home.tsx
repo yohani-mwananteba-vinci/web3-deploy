@@ -53,8 +53,6 @@ export default function Home() {
   }, []);
 
   const handleAddExpense = async (newExpense: ExpenseInput) => {
-    const newExpensesOptimistic = [newExpense, ...expenses]; // Optimistically update the state, whatever the sort method, add on top
-    setExpenses({ ...newExpensesOptimistic } as Expense[]);
     const addedExpense = await sendApiRequestandHandleError(
       "POST",
       "expenses",

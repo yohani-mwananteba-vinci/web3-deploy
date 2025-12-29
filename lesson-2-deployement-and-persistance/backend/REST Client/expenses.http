@@ -8,8 +8,8 @@ POST {{baseUrl}}/expenses
 Content-Type: application/json
 
 {
-    "date": "2025-28-12",
-    "description": "Example expense #1 from Alice",
+    "date": "2025-12-28",
+    "description": "Example expense #2 from Alice",
     "payer": "Alice",
     "amount": 25.5 
 }
@@ -19,6 +19,7 @@ POST {{baseUrl}}/expenses
 Content-Type: application/json
 
 {
+  "date": "2025-12-27",
   "description": "Lunch with client",
   "payer": "Alice",
   "amount": 45.75
@@ -29,6 +30,7 @@ POST {{baseUrl}}/expenses
 Content-Type: application/json
 
 {
+  "date": "2025-12-26",
   "description": "Office supplies",
   "payer": "Bob",
   "amount": 12.4
@@ -39,6 +41,7 @@ POST {{baseUrl}}/expenses
 Content-Type: application/json
 
 {
+  "date": "2025-12-25",
   "description": "Taxi to airport",
   "payer": "Charlie",
   "amount": 32
@@ -49,6 +52,7 @@ POST {{baseUrl}}/expenses
 Content-Type: application/json
 
 {
+  "date": "2025-12-24",
   "description": "Team coffee",
   "payer": "Dana",
   "amount": 18.9

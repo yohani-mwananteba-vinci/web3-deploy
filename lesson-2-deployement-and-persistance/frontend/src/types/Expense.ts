@@ -1,5 +1,6 @@
-interface Expense {
-  id: string;
+import type { Identifiable } from "./Core";
+
+interface Expense extends Identifiable {
   date: string;
   description: string;
   payer: string;

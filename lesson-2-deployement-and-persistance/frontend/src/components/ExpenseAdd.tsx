@@ -60,6 +60,7 @@ export default function ExpenseAdd({ addExpense }: ExpenseAddProps) {
             {...register("amount", {
               required: "Amount field is required",
               min: { value: 0.01, message: "Amount must be at least $0.01" },
+              valueAsNumber: true,
             })}
             placeholder="Enter amount"
           />
@@ -75,9 +76,6 @@ export default function ExpenseAdd({ addExpense }: ExpenseAddProps) {
               required: "Description field is required",
             })}
             placeholder="Enter description"
-
-            //value={description}
-            // onChange={(e) => setDescription(e.target.value)}
           />
           {errors.description && <span>{errors.description.message}</span>}
         </label>

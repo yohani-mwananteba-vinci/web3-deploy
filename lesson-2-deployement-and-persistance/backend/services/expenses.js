@@ -22,10 +22,20 @@ async function addExpense(expense) {
   return expense;
 }
 
-function resetExpenses() {
-  const initData = fs.readFileSync(EXPENSES_INIT_FILE_PATH, 'utf8');
-  fs.writeFileSync(EXPENSES_FILE_PATH, initData);
-  return JSON.parse(initData);
+async function resetExpenses() {
+  await prisma.expense.deleteMany({});
+  const initialExpenses =
+    [
+      { "id": 1, "date": new Date("2025-01-16"), "description": "Example expense #1 from Alice", "payer": "Alice", "amount": 25.5 },
+      { "id": 2, "date": new Date("2025-01-15"), "description": "Example expense #2 from Bob", "payer": "Bob", "amount": 35 },
+      { "id": 3, "date": new Date("2025-01-15"), "description": "Example expense #3 from Alice", "payer": "Alice", "amount": 2 }
+    ]
+  const resetdata = await prisma.expense.createManyAndReturn({
+    data: initialExpenses,
+    skipDuplicates: true,
+  });
+  console.log(resetdata);
+  return resetdata;
 }
 
 module.exports = {
