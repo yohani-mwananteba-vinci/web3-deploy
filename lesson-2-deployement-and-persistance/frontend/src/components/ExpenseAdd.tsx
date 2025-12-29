@@ -15,13 +15,16 @@ export default function ExpenseAdd({ addExpense }: ExpenseAddProps) {
   const onSubmit = (data: ExpenseInput) => {
     console.log(data);
     addExpense({
-      date: data.date,
+      date: data.date,  //C: aurait dû être "new Date().toISOString()"
       description: data.description,
       payer: data.payer,
       amount: data.amount,
     });
   };
 
+  // C: 
+  // - Il ne fallait pas laisser choisir la date à l'utilisateur (utiliser la date du jour automatiquement)
+  // - Il fallait rajouter un event pour rajouter un text pour l'ajout d'une expense (isSubmitSuccessful)
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
@@ -36,7 +39,7 @@ export default function ExpenseAdd({ addExpense }: ExpenseAddProps) {
           {errors.payer && <span>{errors.payer.message}</span>}
         </label>
       </div>
-
+      
       <div>
         <label>
           Date :

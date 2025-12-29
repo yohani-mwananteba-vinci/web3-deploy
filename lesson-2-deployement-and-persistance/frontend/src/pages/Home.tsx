@@ -17,7 +17,7 @@ export default function Home() {
   const sendApiRequestandHandleError = async (
     method: string = "GET",
     path: string,
-    body?: any
+    body?: unknown
   ) => {
     try {
       const response = await fetch(`${host}/api/${path}`, {
@@ -53,6 +53,10 @@ export default function Home() {
   }, []);
 
   const handleAddExpense = async (newExpense: ExpenseInput) => {
+    // C: Il fallait garder l'optimistic et mettre comme id 'temp-id' pour éviter les conflits avec le backend
+    // const newExpenseOptimistic = { id: 'optimistic', ...newExpenseForm } as Expense; // We add a temporary id -1 for React key, it will be replaced when we get the real added expense from backend
+    // const newExpensesOptimistic = [newExpenseOptimistic, ...expenses]; // Optimistically update the state, whatever the sort method, add on top
+    // setExpenses(newExpensesOptimistic);
     const addedExpense = await sendApiRequestandHandleError(
       "POST",
       "expenses",
