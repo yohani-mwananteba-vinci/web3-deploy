@@ -1,17 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 export const NavBar = () => {
+  const location = useLocation();
   return (
-    <nav>
-      <button>
-        <NavLink to={"/"}>Home</NavLink>
-      </button>
-      <button>
-        <NavLink to={"/list"}>View Expenses</NavLink>
-      </button>
-      <button>
-        <NavLink to={"/add"}>Add Expense</NavLink>
-      </button>
-    </nav>
+    <div className="bg-green-900 p-5 text-center text-white">
+      <nav className="flex items-center justify-evenly">
+        <NavLink className={location.pathname === "/" ? "font-bold" : ""} to={"/"}>Home</NavLink>
+        <NavLink className={location.pathname === "/add" ? "font-bold" : ""} to={"/add"}>Add Expense</NavLink>
+        <NavLink className={location.pathname === "/list" ? "font-bold" : ""} to={"/list"}>View Expenses</NavLink>
+      </nav>
+    </div>
   );
 };

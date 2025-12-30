@@ -75,9 +75,9 @@ export default function List() {
 
   return (
     <div>
-      <h1>List Page</h1>
+      <h1 className="text-2xl font-bold">List Page</h1>
       <div>
-        <h2>Expenses ({expenses.length})</h2>
+        <h2 className="text-2xl">Expenses ({expenses.length})</h2>
 
         {error && <div>Error: {error}</div>}
 
@@ -85,16 +85,16 @@ export default function List() {
           <ExpenseSorter setSortingAlgo={handleAlgoChange} />
         )}
 
-        <div>
+        <div className={"bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded"}>
           <button onClick={handleResetData}>Reset Data</button>
         </div>
 
-        <div>
+        <div className="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
           {sortedExpenses.length === 0 ? (
             <p>No expenses found.</p>
           ) : (
-            <table>
-              <tbody>
+            <table className="w-full text-sm text-left rtl:text-right text-body">
+              <tbody className="text-left">
                 {sortedExpenses.map((expense) => (
                   <ExpenseItem key={expense.id} expense={expense} />
                 ))}

@@ -6,14 +6,14 @@ interface ExpenseItemProps {
 
 export default function ExpenseItem({ expense }: ExpenseItemProps) {
   return (
-    <tr>
-      <td>#{expense.id}</td>
-      <td>{expense.date}</td>
-      <td>{expense.description}</td>
-      <td>
+    <tr className="table-row border hover:bg-blue-400">
+      <td className="px-6 py-3 font-medium">#{expense.id}</td>
+      <td className="px-6 py-3 font-medium ">{expense.date}</td>
+      <td className="px-6 py-3 font-medium ">{expense.description}</td>
+      <td className="px-6 py-3 font-medium ">
         Paid by <span>{expense.payer}</span>
       </td>
-      <td>${expense.amount.toFixed(2)}</td>
+      <td className="text-right p-2 ">${expense.amount.toFixed(2)}</td>
     </tr>
   );
 }

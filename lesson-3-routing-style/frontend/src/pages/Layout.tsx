@@ -5,7 +5,9 @@ export const Layout = () => {
   return (
     <div>
       <NavBar />
-      <Outlet />
+      <div className="flex items-center justify-center m-auto text-center">
+        <Outlet />
+      </div>
     </div>
   );
 };
