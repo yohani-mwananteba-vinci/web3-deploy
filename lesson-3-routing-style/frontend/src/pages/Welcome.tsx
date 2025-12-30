@@ -1,12 +1,13 @@
-interface WelcomeProps {
-  setCurrentPage: (page: string) => void;
-}
-export default function Welcome({ setCurrentPage }: WelcomeProps) {
+import { useContext } from "react";
+import { PageContext } from "../App";
+
+export default function Welcome() {
+  const { setCurrentPage } = useContext(PageContext);
   return (
-    <div>
-      <h1>Welcome Page</h1>
-      <button onClick={() => setCurrentPage("List")}>View Expense List</button>
-      <button onClick={() => setCurrentPage("Add")}>Add a new Expense</button>
-    </div>
+    <>
+      Welcome to the Expense Tracker
+      <button onClick={() => setCurrentPage("List")}>View Expenses</button>
+      <button onClick={() => setCurrentPage("Add")}>Add Expense</button>
+    </>
   );
 }

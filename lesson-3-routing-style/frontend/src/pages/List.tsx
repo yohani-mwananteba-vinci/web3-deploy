@@ -1,8 +1,9 @@
-interface ListProps {
-  setCurrentPage: (page: string) => void;
-}
+import { useContext } from "react";
+import { PageContext } from "../App";
 
-export default function List({ setCurrentPage }: ListProps) {
+export default function List() {
+  const { setCurrentPage } = useContext(PageContext);
+
   return (
     <div>
       <h1>List Page</h1>

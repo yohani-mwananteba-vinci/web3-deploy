@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import "./App.css";
 import Home from "./pages/Home";
 import Welcome from "./pages/Welcome";
@@ -7,22 +7,33 @@ import List from "./pages/List";
 
 function App() {
   const [currentPage, setCurrentPage] = useState<string>("Welcome");
-  if (currentPage == "Welcome") {
-    return <Welcome setCurrentPage={setCurrentPage} />;
+
+  const pages: { [key: string]: React.FunctionComponent } = {
+    Home: Home,
+    Welcome: Welcome,
+    List: List,
+    Add: Add,
+  };
+
+  const CurrentPageComponent = pages[currentPage];
+
+  function handlePageChange(page: string) {
+    window.history.pushState(null, page, `/${page.toLowerCase()}`);
+    setCurrentPage(page);
   }
 
-  if (currentPage == "Add") {
-    return <Add setCurrentPage={setCurrentPage} />;
-  }
-
-  if (currentPage == "List") {
-    return <List setCurrentPage={setCurrentPage} />;
-  }
   return (
-    <>
-      <Home />
-    </>
+    <PageContext.Provider
+      value={{ currentPage, setCurrentPage: handlePageChange }}
+    >
+      <CurrentPageComponent />
+    </PageContext.Provider>
   );
 }
 
-export default App;
+export const PageContext = createContext<{
+  currentPage: string;
+  setCurrentPage: (page: string) => void;
+}>();
+
+export default App ;

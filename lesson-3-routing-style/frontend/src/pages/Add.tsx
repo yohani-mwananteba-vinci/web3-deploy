@@ -1,8 +1,9 @@
-interface AddProps {
-  setCurrentPage: (page: string) => void;
-}
+import { useContext } from "react";
+import { PageContext } from "../App";
 
-export default function Add({ setCurrentPage }: AddProps) {
+export default function Add() {
+  const { setCurrentPage } = useContext(PageContext);
+
   return (
     <div>
       <h1>Add Page</h1>
