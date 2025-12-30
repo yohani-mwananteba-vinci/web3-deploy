@@ -4,7 +4,7 @@ import ExpenseAdd from '../components/ExpenseAdd';
 import ExpenseSorter from '../components/ExpenseSorter';
 import type { Expense, ExpenseInput } from '../types/Expense';
 
-const host = import.meta.env.VITE_API_URL;
+const host = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 export default function Home() {
   const [sortingAlgo, setSortingAlgo] = useState<(_a: Expense, _b: Expense) => number>(() => () => 0);

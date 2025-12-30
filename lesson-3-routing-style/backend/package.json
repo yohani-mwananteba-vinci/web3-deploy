@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon --exec npm run start"
+    "dev": "nodemon --exec npm run start",
+    "build": "npm install && npm run prisma:generate ",
+    "prisma:generate": "prisma generate --no-engine",
+    "//prisma:start_db": "We need a specific version of prisma to fix a bug on windows",
+    "prisma:start_db": "npx prisma dev @0.0.0-dev.202509301625"
   },
   "dependencies": {
     "@prisma/client": "^6.14.0",
@@ -15,6 +19,6 @@
     "morgan": "~1.9.1"
   },
   "devDependencies": {
-    "prisma": "^6.14.0"
+    "prisma": "^6.19.1"
   }
 }
