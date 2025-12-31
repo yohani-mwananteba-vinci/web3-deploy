@@ -3,6 +3,8 @@ import ExpenseItem from "../components/ExpenseItem";
 import ExpenseSorter from "../components/ExpenseSorter";
 import type { Expense } from "../types/Expense";
 
+import { Table, TableBody } from "@/components/ui/table";
+
 const host = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 export default function List() {
@@ -93,13 +95,13 @@ export default function List() {
           {sortedExpenses.length === 0 ? (
             <p>No expenses found.</p>
           ) : (
-            <table className="w-full text-sm text-left rtl:text-right text-body">
-              <tbody className="text-left">
+            <Table>
+              <TableBody className="text-left">
                 {sortedExpenses.map((expense) => (
                   <ExpenseItem key={expense.id} expense={expense} />
                 ))}
-              </tbody>
-            </table>
+              </TableBody>
+            </Table>
           )}
         </div>
       </div>

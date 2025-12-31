@@ -1,4 +1,5 @@
-import type { Expense } from '../types/Expense';
+import type { Expense } from "../types/Expense";
+import { TableCell, TableRow } from "@/components/ui/table";
 
 interface ExpenseItemProps {
   expense: Expense;
@@ -6,14 +7,14 @@ interface ExpenseItemProps {
 
 export default function ExpenseItem({ expense }: ExpenseItemProps) {
   return (
-    <tr className="table-row border hover:bg-blue-400">
-      <td className="px-6 py-3 font-medium">#{expense.id}</td>
-      <td className="px-6 py-3 font-medium ">{expense.date}</td>
-      <td className="px-6 py-3 font-medium ">{expense.description}</td>
-      <td className="px-6 py-3 font-medium ">
+    <TableRow className="hover:bg-blue-400">
+      <TableCell>#{expense.id}</TableCell>
+      <TableCell>{expense.date}</TableCell>
+      <TableCell>{expense.description}</TableCell>
+      <TableCell>
         Paid by <span>{expense.payer}</span>
-      </td>
-      <td className="text-right p-2 ">${expense.amount.toFixed(2)}</td>
-    </tr>
+      </TableCell>
+      <TableCell className="text-right">${expense.amount.toFixed(2)}</TableCell>
+    </TableRow>
   );
 }
