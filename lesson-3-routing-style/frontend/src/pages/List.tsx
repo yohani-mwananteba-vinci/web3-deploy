@@ -5,7 +5,7 @@ import type { Expense } from "../types/Expense";
 
 import { Table, TableBody } from "@/components/ui/table";
 
-const host = import.meta.env.VITE_API_URL || "http://localhost:3000";
+const host = import.meta.env.VITE_API_URL || "http://localhost:3000"; // C: erreur – dans la solution, List ne connaît pas host, elle appelle PageContext.sendApiRequestandHandleError fourni par App.tsx
 
 export default function List() {
   const [sortingAlgo, setSortingAlgo] = useState<
@@ -13,7 +13,7 @@ export default function List() {
   >(() => () => 0);
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null); // C: erreur – dans la solution, error est lu depuis PageContext et non redéclaré localement
 
   const sendApiRequestandHandleError = async (
     method: string = "GET",
@@ -30,7 +30,7 @@ export default function List() {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      return await response.json();
+      return await response.json(); // C: erreur – même duplication de logique API que dans Add/Home, qui devrait être centralisée dans App.tsx
     } catch (error) {
       console.error("API request failed:", error);
       setError(error instanceof Error ? error.message : "An error occurred");
@@ -42,7 +42,7 @@ export default function List() {
     try {
       setLoading(true);
       const data = await sendApiRequestandHandleError("GET", "expenses");
-      setExpenses(data);
+      setExpenses(data); // C: erreur – si l'appel renvoie undefined, cela casse le typage implicite (la solution fait "... || []" pour garantir un tableau)
       setError(null);
     } finally {
       setLoading(false);
@@ -63,6 +63,7 @@ export default function List() {
     );
     setExpenses(resetData.data);
     setLoading(false);
+    // C: erreur – dans la solution, la remise à zéro est gérée depuis Add (via PageContext), pas directement dans List
   };
 
   const handleAlgoChange = (algo: (a: Expense, b: Expense) => number) => {

@@ -4,13 +4,13 @@ import ExpenseAdd from '../components/ExpenseAdd';
 import ExpenseSorter from '../components/ExpenseSorter';
 import type { Expense, ExpenseInput } from '../types/Expense';
 
-const host = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const host = import.meta.env.VITE_API_URL || 'http://localhost:3000'; // C: erreur – dans la solution, l'accès API est centralisé dans App.tsx via PageContext, aucune page ne manipule host directement
 
-export default function Home() {
+export default function Home() { // C: erreur – il n'y a pas de page Home dans la solution, la logique est répartie entre Welcome, List et Add
   const [sortingAlgo, setSortingAlgo] = useState<(_a: Expense, _b: Expense) => number>(() => () => 0);
-  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [expenses, setExpenses] = useState<Expense[]>([]); // C: erreur – ce state duplique celui de List dans la solution, qui est la seule page listant les dépenses
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null); // C: erreur – dans la solution, error vient du PageContext et est affichée dans List
 
   const sendApiRequestandHandleError = async (method: string = 'GET', path: string, body?: unknown) => {
     try {
@@ -23,7 +23,7 @@ export default function Home() {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      return await response.json();
+      return await response.json(); // C: erreur – même duplication de logique API que dans Add/List, qui devrait être factorisée dans App.tsx
     } catch (error) {
       console.error('API request failed:', error);
       setError(error instanceof Error ? error.message : 'An error occurred');
@@ -35,7 +35,7 @@ export default function Home() {
     try {
       setLoading(true);
       const data = await sendApiRequestandHandleError('GET', 'expenses');
-      setExpenses(data);
+      setExpenses(data); // C: erreur – si l'appel échoue, data peut être undefined et casser l'invariant "expenses est toujours un tableau" (la solution force [] par défaut)
       setError(null);
     } finally {
       setLoading(false);

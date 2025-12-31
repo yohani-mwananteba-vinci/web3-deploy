@@ -2,8 +2,8 @@ import { NavLink } from "react-router-dom";
 
 export default function Welcome() {
   return (
-    <div className="flex flex-col gap-6">
-      <div className="text-2xl">
+    <div className="flex flex-col gap-6"> {/* C: erreur – dans la solution, le conteneur est centré avec "text-center" et non une simple colonne flexible */}
+      <div className="text-2xl"> {/* C: erreur – dans la solution, le titre est beaucoup plus mis en avant ("text-5xl") */}
         <h1 className="font-bold">Welcome to the Expense Tracker</h1>
         <div>
           <p>
@@ -18,7 +18,7 @@ export default function Welcome() {
           </p>
         </div>
       </div>
-      <div className="text-white font-bold gap-2">
+      <div className="text-white font-bold gap-2"> {/* C: erreur – dans la solution, ce bloc est une ligne centrée ("flex flex-row gap-4 justify-center") */}
         <NavLink
           to={"/add"}
           className={"bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded"}

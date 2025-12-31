@@ -13,7 +13,7 @@ import {
 export const NavBar = () => {
   const location = useLocation();
   return (
-    <div className="bg-green-700 items-center">
+    <div className="bg-green-700 items-center"> {/* C: erreur – dans la solution, la barre de navigation est un <nav> en pleine largeur (w-lvw flex ...) et non un simple div qui ne garantit pas 100% de largeur */}
       <NavigationMenu className="mx-auto flex max-w-5xl px-4 py-3 text-white">
         <NavigationMenuList className="flex gap-6">
           <NavigationMenuItem>
