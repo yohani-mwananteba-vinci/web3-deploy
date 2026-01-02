@@ -1,5 +1,5 @@
 import { useLoaderData, useNavigate } from "react-router";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import {
@@ -17,7 +17,7 @@ import { toast } from "sonner";
 import ApiClient from "@/lib/api";
 import { useCurrentUser } from "../Layout/hooks";
 import type { LoaderData } from "./loader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { NewExpensePayload } from "@/types/Expense";
 import { Label } from "@/components/ui/label";
 
@@ -52,6 +52,18 @@ const NewExpense = () => {
     },
   });
 
+  useEffect(() => {
+    if (!currentUser?.id) return;
+
+    const currentValues = form.getValues("participantIds") ?? [];
+
+    if (!currentValues.includes(currentUser.id)) {
+      const newValue = [...currentValues, currentUser.id];
+      form.setValue("participantIds", newValue, { shouldValidate: true });
+      setParticipantsIds(newValue);
+    }
+  }, [currentUser, form]);
+
   const onSubmit = async ({ description, amount }: FormData) => {
     const newExpenseForm: NewExpensePayload = {
       description,
@@ -66,7 +78,9 @@ const NewExpense = () => {
   };
 
   const isSubmitDisabled =
-    form.formState.isSubmitting || !form.formState.isValid;
+    form.formState.isSubmitting ||
+    !form.formState.isValid ||
+    currentUser == null;
 
   return (
     <div>
@@ -163,13 +177,17 @@ const NewExpense = () => {
               </div>
 
               <div className="flex justify-end">
-                <Button
-                  type="submit"
-                  // disabled={isSubmitDisabled}
-                  variant="default"
-                >
-                  {form.formState.isSubmitting ? "Adding..." : "Add"}
-                </Button>
+                {currentUser ? (
+                  <Button
+                    type="submit"
+                    disabled={isSubmitDisabled}
+                    variant="default"
+                  >
+                    {form.formState.isSubmitting ? "Adding..." : "Add"}
+                  </Button>
+                ) : (
+                  <p>Please log in to create a transfer.</p>
+                )}
               </div>
             </form>
           </Form>
