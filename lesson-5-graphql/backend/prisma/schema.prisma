@@ -4,14 +4,22 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+//C: Il fallait rediriger l'output dans le fichier API
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  output   = "../src/generated/prisma"  
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+// C: C'est ce qu'il fallait rajouter pour que ça fonctionne
+generator pothos {
+  provider = "prisma-pothos-types"
+  clientOutput = "./prisma" // relative path from pothos output to prisma client
+  output = "../src/generated/pothos-prisma-types.ts" //  Where to write the generated types
 }
 
 model User {

@@ -28,6 +28,9 @@ import { toast } from "sonner";
 import { gql } from "@apollo/client";
 import graphqlClient from "@/lib/graphql-client";
 
+// C: Dans la solution, le schéma GraphQL attend un String pour l'argument date
+// (et non un DateTime natif). Ici, la mutation est typée avec $date: DateTime!,
+// ce qui diverge du schéma de la solution et peut poser problème selon le serveur.
 const CREATE_EXPENSE_GQL = gql`
   mutation CreateExpense(
     $description: String!
@@ -53,6 +56,9 @@ const expenseSchema = z.object({
   description: z.string().min(1, "Description is required"),
   payerId: z.string().min(1, "Payer is required"),
   amount: z.coerce.number<number>().min(0.01, "Amount must be greater than 0"),
+  // C: Dans la solution, date est validée avec z.iso.date() (date requise au format ISO).
+  // Ici, c'est une string optionnelle, donc la validation côté front est moins stricte
+  // que dans la solution.
   date: z.string().optional(),
   participantIds: z
     .array(z.string())

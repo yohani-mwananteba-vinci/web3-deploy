@@ -1,5 +1,7 @@
 import SchemaBuilder from "../../graphql/builder";
 import * as expenseRepository from "./expenseRepository";
+// C: Il fallait que le type Expense pour le parent
+// => import type { Expense } from "@/generated/prisma/client";
 
 const augmentSchema = (builder: typeof SchemaBuilder) => {
   const ExpenseRef = builder.prismaObject("Expense", {
@@ -7,9 +9,8 @@ const augmentSchema = (builder: typeof SchemaBuilder) => {
       id: t.exposeID("id"),
       description: t.exposeString("description"),
       amount: t.exposeFloat("amount"),
-      // GraphQL retourne une String, Prisma stocke un Date
       date: t.string({
-        resolve: (parent: any) => parent.date.toISOString(),
+        resolve: (parent: any) => parent.date.toISOString(), //C: Il fallait que parent soit de type Expense (export type Expense from prisma client)
       }),
       payer: t.relation("payer"),
       participants: t.relation("participants"),
@@ -36,8 +37,7 @@ const augmentSchema = (builder: typeof SchemaBuilder) => {
         args: {
           description: t.arg.string({ required: true }),
           amount: t.arg.float({ required: true }),
-          // On accepte une String au format ISO côté GraphQL
-          date: t.arg.string({ required: true }),
+          date: t.arg({ type: "String", required: true }),
           payerId: t.arg.int({ required: true }),
           participantIds: t.arg({ type: ["Int"], required: true }),
         },
@@ -46,7 +46,7 @@ const augmentSchema = (builder: typeof SchemaBuilder) => {
           return expenseRepository.createExpense({
             description,
             amount,
-            date,
+            date, //C: Il fallait mettre une valeur de type Date ici (converion string -> Date) => date: new Date(date)
             payerId,
             participantIds,
           });

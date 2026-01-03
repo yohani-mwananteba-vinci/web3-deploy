@@ -6,7 +6,7 @@
     "paths": {
       "@/*": ["*"]
     },
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "outDir": "dist",
     "importsNotUsedAsValues": "remove",
     "strict": true,

@@ -1,3 +1,4 @@
+// C: Fichier plus utile
 import { ApolloServer } from "@apollo/server";
 import { expressMiddleware } from "@as-integrations/express5";
 import * as expenseRepository from "@/api/expense/expenseRepository";

@@ -3,7 +3,7 @@ import express, { type Express } from "express";
 import graphqlMiddleware from "./graphql/middleware";
 import helmet from "helmet";
 import { pino } from "pino";
-import { ruruHTML } from "ruru/server";
+import { ruruHTML } from "ruru/server"; // C: si erreur: changer pour "moduleResolution": "bundler" dans tsconfig.json
 import { healthCheckRouter } from "@/api/healthCheck/healthCheckRouter";
 import userRouter from "@/api/user/userRouter";
 import errorHandler from "@/common/middleware/errorHandler";
