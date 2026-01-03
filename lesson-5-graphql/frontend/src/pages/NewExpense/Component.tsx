@@ -12,7 +12,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Checkbox } from '@/components/ui/checkbox';
 import type { LoaderData } from './loader';
 import { toast } from 'sonner';
-import { useState } from 'react';
 
 const expenseSchema = z.object({
   description: z.string().min(1, 'Description is required'),

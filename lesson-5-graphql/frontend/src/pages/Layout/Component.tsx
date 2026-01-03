@@ -1,14 +1,14 @@
-import { NavLink, Outlet, useLoaderData } from 'react-router';
-import { useState } from 'react';
-import type { LoaderData } from './loader';
-import type { User } from '@/types/User';
-import { Toaster } from 'sonner';
+import { NavLink, Outlet, useLoaderData } from "react-router";
+import { useState, type ChangeEvent } from "react";
+import type { LoaderData } from "./loader";
+import type { User } from "@/types/User";
+import { Toaster } from "sonner";
 
 export default function Layout() {
   const { users } = useLoaderData<LoaderData>();
   const [currentUser, setCurrentUser] = useState<null | User>(null);
 
-  const handleUserChange = (e) => {
+  const handleUserChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const id = e.target.value;
     const newCurrentUser = users.find((user) => user.id === Number(id)) ?? null;
     setCurrentUser(newCurrentUser);
@@ -34,7 +34,7 @@ export default function Layout() {
           </NavLink>
 
           <select
-            value={currentUser?.id ?? 'none'}
+            value={currentUser?.id ?? "none"}
             className="bg-white text-black rounded px-2"
             onChange={handleUserChange}
           >
