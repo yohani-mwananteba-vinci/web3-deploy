@@ -49,6 +49,7 @@ export default function Layout() {
 
       <main className="p-6">
         <Outlet context={outletContext} />
+        {/* C: Il manque un Toaster ! */}
       </main>
     </div>
   );

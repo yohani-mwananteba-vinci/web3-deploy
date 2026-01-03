@@ -31,3 +31,5 @@ export async function createTransfer({
     },
   });
 }
+
+// C: Il manque la fonction pour récupérer un transfert par son ID

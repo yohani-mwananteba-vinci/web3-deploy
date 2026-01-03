@@ -18,3 +18,5 @@ export async function createTransfer(req: Request, res: Response) {
   });
   res.status(StatusCodes.CREATED).json(newTransfer);
 }
+
+// C: Il manque la fonction pour récupérer un transfert par son ID

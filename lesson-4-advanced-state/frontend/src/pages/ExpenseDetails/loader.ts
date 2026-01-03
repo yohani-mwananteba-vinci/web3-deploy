@@ -7,6 +7,7 @@ export interface LoaderData {
 }
 
 export async function loader({ params }: LoaderFunctionArgs) {
+  // C: Il fallait faire une var {id} = params et convertir en number avant de passer à l'API mais ok !
   const expense = await ApiClient.getExpenseById(Number(params.id));
   return { expense };
 }
