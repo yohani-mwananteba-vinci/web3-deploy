@@ -18,12 +18,14 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 const router = createBrowserRouter([
   { path: "login", Component: Login },
   {
-    path: "/",
+    path: "/",  //C: Inutile car déjà défini par défaut
     element: (
       <ProtectedRoute>
         <Layout />
       </ProtectedRoute>
     ),
+    // C: Dans la solution, le Layout n'a plus de loader, cette
+    // C: propriété `loader` a donc été supprimée.
     loader: layoutLoader,
     id: "layout",
 

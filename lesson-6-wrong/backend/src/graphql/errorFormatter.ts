@@ -1,11 +1,17 @@
 import { GraphQLError, GraphQLFormattedError } from "graphql";
 import { AppError } from "@/errors/AppErrors";
 
+// C: Dans la solution, on importe aussi `unwrapResolverError` depuis
+// C: `@apollo/server/errors` et la signature est
+// C: `formatError(formattedError, error)` (erreur brute) pour pouvoir
+// C: extraire correctement la cause originale.
 export function formatError(error: GraphQLError): GraphQLFormattedError {
   // Log error for debugging (in production, use proper logging service)
   console.error("GraphQL Error:", error);
 
   // Extract original error
+  // C: Dans la solution, on utilise `unwrapResolverError(error)` au lieu
+  // C: d'accéder directement à `error.originalError`.
   const originalError = error.originalError;
 
   // Handle our custom AppErrors

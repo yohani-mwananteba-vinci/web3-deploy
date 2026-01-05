@@ -7,7 +7,11 @@ import { formatError } from "./errorFormatter";
 
 const server = new ApolloServer({
   schema,
-  formatError: (formattedError, _error) => formatError(formattedError as any), //C: it's a touchy cast (generate by AI)
+  // C: Dans la solution, on passe directement `formatError` (signature
+  // C: `(formattedError, error)`), ce qui permet de recevoir aussi
+  // C: l'erreur brute. Ici on caste seulement `formattedError`, donc
+  // C: `errorFormatter` ne voit pas la vraie cause de l'erreur.
+  formatError: (formattedError, _error) => formatError(formattedError as any),
 });
 await server.start();
 

@@ -13,7 +13,7 @@ import type { LoaderData } from './loader';
 import { toast } from 'sonner';
 
 const transferSchema = z.object({
-  sourceId: z.string().min(1, 'Source is required'),
+  sourceId: z.string().min(1, 'Source is required'), // C: Inutile de vérifier l'id comme il est sensé être donné par la function useCurrentUser() => Voir hooks.ts
   targetId: z.string().min(1, 'Target is required'),
   amount: z.coerce.number<number>().min(0.01, 'Amount must be greater than 0'),
 });
@@ -28,7 +28,7 @@ export default function TransferForm() {
   const form = useForm<TransferFormData>({
     resolver: zodResolver(transferSchema),
     defaultValues: {
-      sourceId: currentUser?.id.toString() || '',
+      sourceId: currentUser?.id.toString() || '', // C: Inutile de vérifier l'id comme il est sensé être donné par la function useCurrentUser() => Voir hooks.ts
       targetId: '',
       amount: 0,
     },
@@ -69,6 +69,8 @@ export default function TransferForm() {
             </div>
           )}
 
+
+          {/* Inutile car maintenant on utilise le user courant récupérable avec le useAuth() Voir hooks.ts */}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <div className="flex justify-between">

@@ -5,13 +5,6 @@ import * as z from "zod";
 import { Receipt, EuroIcon, Users, AlertCircle, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
 import {
   Form,
   FormControl,
@@ -29,7 +22,7 @@ import { useAuth } from "@/contexts/AuthContext";
 
 const expenseSchema = z.object({
   description: z.string().min(1, "Description is required"),
-  payerId: z.string().min(1, "Payer is required"),
+  payerId: z.string().min(1, "Payer is required"), // C: Inutile car on utilise l'ID de l'utilisateur authentifié
   amount: z.coerce.number<number>().min(0.01, "Amount must be greater than 0"),
   date: z.iso.date(),
   participantIds: z
@@ -63,13 +56,13 @@ type ExpenseFormData = z.infer<typeof expenseSchema>;
 export default function ExpenseForm() {
   const { users } = useLoaderData<LoaderData>();
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user } = useAuth(); // C: garder et utiliser la var currentUser qui invoque useCurrentUser() était mieux (voir hooks.ts) + évite la duplication de code
 
   const form = useForm<ExpenseFormData>({
     resolver: zodResolver(expenseSchema),
     defaultValues: {
       description: "",
-      payerId: user?.userId.toString() || "",
+      payerId: user?.userId.toString() || "", // C: Inutile car on utilise l'ID de l'utilisateur authentifié, pas de vérification avec zod
       amount: 0,
       date: new Date().toISOString().split("T")[0],
       participantIds: [],

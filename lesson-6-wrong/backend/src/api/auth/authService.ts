@@ -9,6 +9,10 @@ import { PrismaClient } from "@/generated/prisma/client";
 import { AuthenticationError, ConflictError } from "@/errors/AppErrors";
 
 const prisma = new PrismaClient();
+// C: Dans la solution, JWT_SECRET est obligatoire et l'application
+// C: lève une erreur si la variable d'environnement est absente;
+// C: ici une valeur de secours "fallback-secret-do-not-use" est utilisée,
+// C: ce qui n'est pas sûr en production.
 const JWT_SECRET = process.env.JWT_SECRET || "fallback-secret-do-not-use";
 const SALT_ROUNDS = 10;
 

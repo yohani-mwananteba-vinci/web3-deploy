@@ -1,5 +1,8 @@
  @hostname = localhost:3000
 
+// C: Dans la solution, ce fichier contient aussi un exemple de
+// C: requête /auth/register et un cas d'authentification échouée.
+
 POST  http://{{hostname}}/auth/login
 Content-Type: application/json
 
